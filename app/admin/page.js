@@ -14,7 +14,6 @@ export default function AdminPage() {
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
 
-    // Convert files to Base64
     const promises = files.map((file) => {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -35,51 +34,65 @@ export default function AdminPage() {
   };
 
   return (
-    <div className="max-w-xl mx-auto p-6">
-      <h2 className="text-2xl font-semibold mb-4">Admin Panel</h2>
-      <input
-        placeholder="Product Title"
-        className="input mb-2"
-        onChange={(e) => setProduct({ ...product, title: e.target.value })}
-      />
-      <input
-        placeholder="Price"
-        className="input mb-2"
-        onChange={(e) => setProduct({ ...product, price: e.target.value })}
-      />
-      <input
-        placeholder="Stock"
-        className="input mb-2"
-        onChange={(e) => setProduct({ ...product, stock: e.target.value })}
-      />
-      <input
-        type="datetime-local"
-        className="input mb-2"
-        onChange={(e) => setProduct({ ...product, countdown: e.target.value })}
-      />
-      <input
-        type="file"
-        multiple
-        className="mb-2"
-        onChange={handleImageUpload}
-      />
-      <div className="flex gap-2 flex-wrap mb-4">
-        {product.images.map((img, idx) => (
-          <Image
-            width={80}
-            height={80}
-            key={idx}
-            src={img}
-            alt={`Preview ${idx}`}
-            className="w-20 h-20 object-cover rounded border"
-          />
-        ))}
+    <div className="max-w-2xl mx-auto p-8 bg-white shadow-lg rounded-xl mt-10">
+      <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
+        🛒 Admin Product Panel
+      </h2>
+
+      <div className="space-y-4">
+        <input
+          placeholder="Product Title"
+          className="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          onChange={(e) => setProduct({ ...product, title: e.target.value })}
+        />
+        <input
+          placeholder="Price"
+          className="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          onChange={(e) => setProduct({ ...product, price: e.target.value })}
+        />
+        <input
+          placeholder="Stock"
+          className="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          onChange={(e) => setProduct({ ...product, stock: e.target.value })}
+        />
+        <input
+          type="datetime-local"
+          className="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          onChange={(e) =>
+            setProduct({ ...product, countdown: e.target.value })
+          }
+        />
+        <input
+          type="file"
+          multiple
+          className="w-full text-gray-600"
+          onChange={handleImageUpload}
+        />
       </div>
+
+      {product.images.length > 0 && (
+        <div className="mt-6">
+          <h4 className="font-semibold mb-2 text-gray-700">Image Preview</h4>
+          <div className="grid grid-cols-4 gap-3">
+            {product.images.map((img, idx) => (
+              <Image
+                key={idx}
+                src={img}
+                width={80}
+                height={80}
+                alt={`Preview ${idx}`}
+                className="w-20 h-20 object-cover rounded-lg border"
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
       <button
         onClick={saveProduct}
-        className="bg-blue-600 text-white px-4 py-2 rounded"
+        className="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-md transition duration-200"
       >
-        Save Product
+        💾 Save Product
       </button>
     </div>
   );

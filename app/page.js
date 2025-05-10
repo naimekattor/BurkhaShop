@@ -6,6 +6,24 @@ import ProductFeaturesAndOffer from "@/components/ProductFeaturesAndOffer";
 import ProductSelection from "@/components/ProductSelection";
 import OrderForm from "@/components/OrderForm";
 
+// Default product data (fallback)
+const defaultProductData = {
+  title: "ডিফল্ট প্রোডাক্ট",
+  discount: "২৫%",
+  price: "৫৫০ ৳",
+  images: [
+    "/images/black.webp",
+    "/images/jolpai.webp",
+    "/images/merun.webp",
+    "/images/nude.webp",
+  ],
+  rating: 4,
+  reviewCountText: "(ডিফল্ট রেটিং)",
+  satisfiedCustomersText: "১০০০+ কাস্টমার সন্তুষ্ট",
+  moreColorsText: "মাত্র কয়েকটি বোরকা বাকি আছে!",
+  orderButtonText: "অর্ডার করুন",
+};
+
 export default function Home() {
   const [product, setProduct] = useState(null);
   const [order, setOrder] = useState({ name: "", phone: "" });
@@ -14,6 +32,8 @@ export default function Home() {
     const data = localStorage.getItem("productData");
     if (data) {
       setProduct(JSON.parse(data));
+    } else {
+      setProduct(defaultProductData); // Use fallback data if no product data is found
     }
   }, []);
 
@@ -24,11 +44,14 @@ export default function Home() {
       price: product.price,
     };
 
-    await fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec", {
-      method: "POST",
-      body: JSON.stringify(payload),
-      headers: { "Content-Type": "application/json" },
-    });
+    await fetch(
+      "https://script.google.com/macros/s/AKfycbwk46LESO1ESxwO81NDECMu-o_0_WFasUWyLqFG7NQ0bxYZjVUBjwwhdh4aC8I6Hh8/exec",
+      {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: { "Content-Type": "application/json" },
+      }
+    );
 
     alert("Order placed!");
   };
@@ -37,33 +60,10 @@ export default function Home() {
 
   return (
     <>
-      {/* <div className="max-w-xl mx-auto p-6">
-        <h1 className="text-2xl font-bold mb-2">{product.title}</h1>
-        <p className="text-lg mb-2">Price: ৳{product.price}</p>
-        <p className="text-md mb-2">Stock: {product.stock}</p>
-
-        <ImageGallery images={product.images} />
-
-        <div className="mt-6 space-y-3">
-          <input
-            placeholder="Your Name"
-            className="w-full p-2 border rounded"
-            onChange={(e) => setOrder({ ...order, name: e.target.value })}
-          />
-          <input
-            placeholder="Phone Number"
-            className="w-full p-2 border rounded"
-            onChange={(e) => setOrder({ ...order, phone: e.target.value })}
-          />
-          <button
-            onClick={submitOrder}
-            className="w-full bg-green-600 text-white p-2 rounded"
-          >
-            Place Order
-          </button>
-        </div>
-      </div> */}
-      <ProductDisplay product={product} />
+      <ProductDisplay
+        product={product}
+        defaultProductData={defaultProductData}
+      />
       <ProductFeaturesAndOffer product={product} />
       <ProductSelection product={product} />
       <OrderForm />

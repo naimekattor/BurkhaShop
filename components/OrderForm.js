@@ -9,6 +9,11 @@ const OrderForm = () => {
   const [phoneError, setPhoneError] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const name = e.target.name.value;
+    const address = e.target.address.value;
+    const phone = e.target.phone.value;
+    const deliveryArea = e.target.deliveryArea.value;
+
     const trimmedPhone = phone.trim();
 
     // Updated regex for Bangladeshi mobile numbers
@@ -27,11 +32,13 @@ const OrderForm = () => {
     console.log("✅ Valid phone number. Proceeding with submission...");
 
     // order data send to google sheet
+
     const orderData = {
       name,
       address,
       phone,
       location,
+      deliveryArea,
       selectedBurqas,
       totalPrice: selectedBurqas.reduce(
         (total, item) => total + Number(item.finalPrice),
@@ -87,6 +94,7 @@ const OrderForm = () => {
             type="text"
             placeholder="আপনার নাম লিখুন"
             required
+            name="name"
           />
         </div>
         <div className="mb-4">
@@ -101,6 +109,7 @@ const OrderForm = () => {
             id="address"
             placeholder="আপনার সম্পূর্ণ ঠিকানা লিখুন"
             required
+            name="address"
           ></textarea>
         </div>
         <div className="mb-4">
@@ -118,6 +127,7 @@ const OrderForm = () => {
             required
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
+            name="phone"
           />
 
           {phoneError && (
