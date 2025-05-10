@@ -10,7 +10,7 @@ import OrderForm from "@/components/OrderForm";
 const defaultProductData = {
   title: "ডিফল্ট প্রোডাক্ট",
   discount: "২৫%",
-  price: "৫৫০ ৳",
+  price: "৭৫০ ৳",
   images: [
     "/images/black.webp",
     "/images/jolpai.webp",
@@ -22,6 +22,7 @@ const defaultProductData = {
   satisfiedCustomersText: "১০০০+ কাস্টমার সন্তুষ্ট",
   moreColorsText: "মাত্র কয়েকটি বোরকা বাকি আছে!",
   orderButtonText: "অর্ডার করুন",
+  countdown: "2025-12-31T23:59:59",
 };
 
 export default function Home() {
@@ -64,7 +65,10 @@ export default function Home() {
         product={product}
         defaultProductData={defaultProductData}
       />
-      <ProductFeaturesAndOffer product={product} />
+      <ProductFeaturesAndOffer
+        product={product}
+        defaultProductData={defaultProductData}
+      />
       <ProductSelection product={product} />
       <OrderForm />
     </>

@@ -17,8 +17,10 @@ const CheckIcon = ({ className }) => (
   </svg>
 );
 
-const ProductFeaturesAndOffer = ({ product }) => {
-  const targetDate = new Date(product.countdown).getTime();
+const ProductFeaturesAndOffer = ({ product, defaultProductData }) => {
+  const targetDate = new Date(
+    product.countdown ? product.countdown : defaultProductData.coundown
+  ).getTime();
   const [timeLeft, setTimeLeft] = useState(getTimeRemaining());
 
   function getTimeRemaining() {
