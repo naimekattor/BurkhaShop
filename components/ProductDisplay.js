@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight, Star, AlertTriangle } from "lucide-react";
 import Image from "next/image";
+import { useProductContext } from "@/context/ProductContext";
 
 // Star Rating Component
 const StarRating = ({ rating, totalStars = 5 }) => {
@@ -20,15 +21,17 @@ const StarRating = ({ rating, totalStars = 5 }) => {
 };
 
 // Main Component
-const ProductDisplay = ({ product = {}, defaultProductData }) => {
-  const productData = {
-    ...defaultProductData,
-    ...product,
-    images:
-      product?.images?.length > 0 ? product.images : defaultProductData.images,
-  };
-
+const ProductDisplay = () => {
+  const { products, loading } = useProductContext();
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+
+  // Handle loading or empty products
+  if (loading || products.length === 0) {
+    return <p>Loading products...</p>;
+  }
+
+  const lastProductIndx = products.length - 1;
+  const productData = products[lastProductIndx];
 
   const handleThumbnailClick = (index) => setSelectedImageIndex(index);
   const handlePrevClick = () =>

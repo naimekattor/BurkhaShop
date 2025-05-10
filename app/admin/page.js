@@ -28,9 +28,37 @@ export default function AdminPage() {
     });
   };
 
-  const saveProduct = () => {
+  /* const saveProduct = () => {
     localStorage.setItem("productData", JSON.stringify(product));
     alert("Product saved!");
+  }; */
+  const saveProduct = async () => {
+    console.log("Product Data:", product);
+    try {
+      // Save product to the database
+      const res = await fetch("/api/products", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(product),
+      });
+
+      const data = await res.json();
+      console.log("API Response:", data);
+      alert(data.message);
+
+      // Fetch the updated product data
+      const fetchRes = await fetch("/api/products");
+      if (!fetchRes.ok) {
+        throw new Error(`Failed to fetch products: ${fetchRes.status}`);
+      }
+      const updatedProducts = await fetchRes.json();
+      console.log("Updated Products:", updatedProducts);
+    } catch (error) {
+      console.error("Error saving product:", error);
+      alert("Failed to save product");
+    }
   };
 
   return (
