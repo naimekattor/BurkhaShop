@@ -7,7 +7,7 @@ const OrderForm = () => {
   const [location, setLocation] = useState("insideDhaka");
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState("");
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const trimmedPhone = phone.trim();
 
@@ -25,7 +25,51 @@ const OrderForm = () => {
 
     // Proceed with form submission
     console.log("✅ Valid phone number. Proceeding with submission...");
+
+    // order data send to google sheet
+    const orderData = {
+      name,
+      address,
+      phone,
+      location,
+      selectedBurqas,
+      totalPrice: selectedBurqas.reduce(
+        (total, item) => total + Number(item.finalPrice),
+        0
+      ),
+      deliveryCharge: location === "insideDhaka" ? 60 : 150,
+      grandTotal: selectedBurqas.reduce(
+        (total, item) => total + Number(item.finalPrice),
+        location === "insideDhaka" ? 60 : 150
+      ),
+      orderTime: new Date().toLocaleString("en-BD", { timeZone: "Asia/Dhaka" }),
+    };
+
+    try {
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycbwk46LESO1ESxwO81NDECMu-o_0_WFasUWyLqFG7NQ0bxYZjVUBjwwhdh4aC8I6Hh8/exec",
+        {
+          method: "POST",
+          body: JSON.stringify(orderData),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const result = await response.json();
+      if (result.result === "success") {
+        alert("অর্ডার সফলভাবে গ্রহণ করা হয়েছে!");
+        setSelectedBurqas([]); // optional: clear selection
+      } else {
+        alert("অর্ডার প্রক্রিয়া ব্যর্থ হয়েছে। আবার চেষ্টা করুন।");
+      }
+    } catch (err) {
+      console.error("Error submitting order:", err);
+      alert("নেটওয়ার্ক সমস্যার কারণে অর্ডার সাবমিট হয়নি।");
+    }
   };
+
   return (
     <div className="max-w-lg mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">অর্ডার ফর্ম</h1>
