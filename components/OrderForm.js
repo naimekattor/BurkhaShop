@@ -79,7 +79,7 @@ const OrderForm = () => {
   };
 
   return (
-    <div className="max-w-[500px] mx-auto px-[20px]">
+    <div className="max-w-[500px] mx-auto px-[20px] pb-[50px]">
       <form onSubmit={handleSubmit} className="p-2">
         <h2 className="font-bold text-[22px] text-black text-center mb-[20px]">
           অর্ডার ফর্ম

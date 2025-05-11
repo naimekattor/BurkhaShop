@@ -63,7 +63,7 @@ const ProductDisplay = () => {
           className="max-w-full h-[450px] block object-cover"
         />
 
-        <div className="absolute top-5 left-7 bg-[#f5463d] text-white px-2.5 py-2 rounded-full text-sm font-bold shadow-lg ">
+        <div className="absolute animate-pulse top-5 left-7 bg-[#f5463d] text-white px-2.5 py-2 rounded-full text-sm font-bold shadow-lg ">
           {productData.discount} ৩০% ছাড়!
         </div>
       </div>
@@ -84,8 +84,10 @@ const ProductDisplay = () => {
             alt={`Image ${index}`}
             width={62}
             height={62}
-            className={`w-[60px] h-[80px] object-cover mx-[5px] cursor-pointer border-2 border-transparent rounded-[4px] ${
-              index === selectedImageIndex ? " border-[#007BFF]" : ""
+            className={`w-[60px] h-[80px] object-cover mx-[5px] cursor-pointer border-2  rounded-[4px] ${
+              index === selectedImageIndex
+                ? " border-[#ff3300]"
+                : "border-transparent"
             }`}
             onClick={() => handleThumbnailClick(index)}
             unoptimized

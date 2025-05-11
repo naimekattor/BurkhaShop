@@ -134,6 +134,7 @@ export default function AdminPage() {
             />
             <input
               type="datetime-local"
+              placeholder="Set Time"
               className="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               onChange={(e) =>
                 setProduct({ ...product, countdown: e.target.value })
