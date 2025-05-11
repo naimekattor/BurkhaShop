@@ -1,7 +1,9 @@
 "use client";
+import { useProductContext } from "@/context/ProductContext";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-
+import { MdOutlineCheckCircleOutline } from "react-icons/md";
+import { FiPhoneCall } from "react-icons/fi";
 const CheckIcon = ({ className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -17,13 +19,25 @@ const CheckIcon = ({ className }) => (
   </svg>
 );
 
-const ProductFeaturesAndOffer = ({ product, defaultProductData }) => {
-  const targetDate = new Date(
-    product.countdown ? product.countdown : defaultProductData.coundown
-  ).getTime();
-  const [timeLeft, setTimeLeft] = useState(getTimeRemaining());
+const ProductFeaturesAndOffer = () => {
+  const { products, loading } = useProductContext();
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
+  // Ensure hooks are called unconditionally
+  const lastIndex = products.length - 1;
+  const product = products[lastIndex] || {};
+  const targetDate = product.countdown
+    ? new Date(product.countdown).getTime()
+    : null;
 
   function getTimeRemaining() {
+    if (!targetDate) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+
     const now = new Date().getTime();
     const difference = targetDate - now;
 
@@ -43,35 +57,67 @@ const ProductFeaturesAndOffer = ({ product, defaultProductData }) => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [targetDate]);
+
+  // Handle loading or empty products array
+  if (loading) {
+    return <p>Loading products...</p>;
+  }
+
+  if (products.length === 0) {
+    return <p>No products available.</p>;
+  }
+
   const features = [
-    "প্রিমিয়াম তৈরি কাপড়",
-    "১০০% ডেলিভারি গ্যারান্টি",
-    "লম্বা ৫০,৫২,৫৪,৫৬",
-    "বডি ৪২-৫০",
-    "পছন্দ না হলে ফেরত দেওয়ার সুযোগ",
+    "লাক্সারি মৌমোচা জর্জেট ফেব্রিক",
+    "ফ্রি সাইজ সবার জন্য পারফেক্ট",
+    'সামনে ৫২", পিছনে ৫৬"',
+    'নিকাব লেনথ ৩২", ঘের ১৮০"',
+    "সম্পূর্ণ শরীয়াহ্ সম্মত খিমার!",
+    "গরম লাগবেনা, ইলাস্টিক সিস্টেম হাতা সাথে ম্যাচিং করা লেজ, বাধার ফিতাও আছে!",
   ];
 
   return (
-    <div className="bg-gray-50 p-4 sm:p-6 md:p-8 max-w-[500px] mx-auto font-sans">
+    <div className="max-w-[500px] mx-auto bg-[#f0f0f0] p-[15px_32px]">
       {/* Features Section */}
-      <div className="mb-8">
-        <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-6">
-          আমাদের বোরকার বৈশিষ্ট্য
+      <div className="py-[20px]">
+        <h2 class="text-center font-bold text-[24px] text-black mb-[20px]">
+          আমাদের খিমারের বৈশিষ্ট্য
         </h2>
-        <ul className="space-y-3">
-          {features.map((feature, index) => (
-            <li key={index} className="flex items-start text-gray-700">
-              <CheckIcon className="w-5 h-5 text-red-500 mr-3 mt-1 flex-shrink-0" />
-              <span>{feature}</span>
-            </li>
+        <div className="flex flex-col mb-[20px] gap-[12px]">
+          {features.map((list, index) => (
+            <div class="flex items-start gap-[10px] mb-[25px]" key={index}>
+              <span className="text-[#f44336] text-[20px] ">
+                <MdOutlineCheckCircleOutline />
+              </span>
+              <span className="text-[16px] text-black leading-[1.4]">
+                {list}
+              </span>
+            </div>
           ))}
-        </ul>
+        </div>
+      </div>
+      <div class="max-w-[500px] text-center mx-auto mb-[20px] bg-[#f0f0f0] p-[20px]">
+        <h2 class="font-bold text-[20px] text-black mb-[10px]">
+          যেকোনো প্রয়োজনে কল করুন
+        </h2>
+        <div class="text-[32px] font-bold text-red-500 mb-[15px]">
+          01835481636
+        </div>
+        <a
+          href="tel:01884314771"
+          class="inline-flex items-center justify-center text-white font-sans text-[18px] font-bold gap-[8px] bg-red-500 no-underline px-[30px] py-[12px] rounded-[4px] transition duration-300"
+        >
+          <span>
+            <FiPhoneCall />
+          </span>
+          01884314771
+        </a>
       </div>
 
       {/* Limited Time Offer Section */}
-      <div className="border-2 border-red-500 rounded-lg p-4 sm:p-6 text-center">
-        <h3 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-4">
+      <div className="text-center mx-auto my-[20px] bg-white p-[20px] border-2 border-solid border-red-500 rounded-[8px]">
+        <h3 className="font-bold text-[24px] text-black mb-[15px]">
           অফারটি সীমিত সময়ের জন্য!
         </h3>
         <div className="flex justify-center space-x-2 sm:space-x-4">
@@ -105,14 +151,14 @@ const ProductFeaturesAndOffer = ({ product, defaultProductData }) => {
           </div>
         </div>
       </div>
-      <div>
+      {/* <div>
         <Image
           src="/images/poster.webp"
           alt="poster"
           width={500}
           height={725}
         />
-      </div>
+      </div> */}
     </div>
   );
 };

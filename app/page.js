@@ -6,7 +6,7 @@ import ProductFeaturesAndOffer from "@/components/ProductFeaturesAndOffer";
 import ProductSelection from "@/components/ProductSelection";
 import OrderForm from "@/components/OrderForm";
 
-// Default product data (fallback)
+/* // Default product data (fallback)
 const defaultProductData = {
   title: "ডিফল্ট প্রোডাক্ট",
   discount: "২৫%",
@@ -23,22 +23,22 @@ const defaultProductData = {
   moreColorsText: "মাত্র কয়েকটি বোরকা বাকি আছে!",
   orderButtonText: "অর্ডার করুন",
   countdown: "2025-12-31T23:59:59",
-};
+}; */
 
 export default function Home() {
-  const [product, setProduct] = useState(null);
-  const [order, setOrder] = useState({ name: "", phone: "" });
+  /* const [product, setProduct] = useState(null);
+  const [order, setOrder] = useState({ name: "", phone: "" }); */
 
-  useEffect(() => {
+  /* useEffect(() => {
     const data = localStorage.getItem("productData");
     if (data) {
       setProduct(JSON.parse(data));
     } else {
       setProduct(defaultProductData); // Use fallback data if no product data is found
     }
-  }, []);
+  }, []); */
 
-  const submitOrder = async () => {
+  /* const submitOrder = async () => {
     const payload = {
       ...order,
       product: product.title,
@@ -57,19 +57,20 @@ export default function Home() {
     alert("Order placed!");
   };
 
-  if (!product) return <p>Loading...</p>;
+  if (!product) return <p>Loading...</p>; */
 
   return (
     <>
       <ProductDisplay
-        product={product}
-        defaultProductData={defaultProductData}
+      /* product={product} */
+      /* defaultProductData={defaultProductData} */
       />
       <ProductFeaturesAndOffer
-        product={product}
-        defaultProductData={defaultProductData}
+      /* product={product} */
+      /* defaultProductData={defaultProductData} */
       />
-      <ProductSelection product={product} />
+      <ImageGallery />
+      <ProductSelection /* product={product} */ />
       <OrderForm />
     </>
   );

@@ -54,7 +54,7 @@ const OrderForm = () => {
 
     try {
       const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbwk46LESO1ESxwO81NDECMu-o_0_WFasUWyLqFG7NQ0bxYZjVUBjwwhdh4aC8I6Hh8/exec",
+        "/api/https://script.google.com/macros/s/AKfycbzf37Ef43KmJHE0aiQ5fGBPcQnKQD0ExYdCvUWIu-JWospDzvsvUcs4T4n8o6efd2Pn/exec",
         {
           method: "POST",
           body: JSON.stringify(orderData),
@@ -78,98 +78,125 @@ const OrderForm = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">অর্ডার ফর্ম</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="max-w-[500px] mx-auto px-[20px]">
+      <form onSubmit={handleSubmit} className="p-2">
+        <h2 className="font-bold text-[22px] text-black text-center mb-[20px]">
+          অর্ডার ফর্ম
+        </h2>
         <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="name"
-          >
-            নাম *
+          <label htmlFor="name" className="text-[15px] text-[#333333]">
+            নাম<span className="required">*</span>
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="name"
             type="text"
+            id="name"
             placeholder="আপনার নাম লিখুন"
-            required
-            name="name"
+            required=""
+            className="w-full text-[14px] text-gray-700 p-[8px_12px] border border-solid border-gray-300 rounded-[8px]"
           />
         </div>
         <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="address"
-          >
-            ঠিকানা *
+          <label htmlFor="address" className="text-[15px] text-[#333333]">
+            ঠিকানা<span className="required">*</span>
           </label>
           <textarea
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="address"
             placeholder="আপনার সম্পূর্ণ ঠিকানা লিখুন"
-            required
-            name="address"
+            required=""
+            className="w-full text-[14px] text-gray-700 p-[8px_12px] border border-solid border-gray-300 rounded-[8px]"
           ></textarea>
         </div>
         <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="phone"
-          >
-            ফোন নাম্বার *
+          <label htmlFor="phone" className="text-[15px] text-[#333333]">
+            ফোন নাম্বার<span className="required">*</span>
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            type="tel"
             id="phone"
-            type="text"
-            placeholder="আপনার ফোন নাম্বার লিখুন"
-            required
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
             name="phone"
+            placeholder="আপনার ফোন নাম্বার লিখুন"
+            required=""
+            className="w-full text-[14px] text-gray-700 p-[8px_12px] border border-solid border-gray-300 rounded-[8px]"
           />
-
-          {phoneError && (
-            <p className="text-red-500 text-sm mt-1">{phoneError}</p>
-          )}
         </div>
-        <div className="mb-4">
+        <div className="">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="deliveryArea"
           >
             ডেলিভারি এরিয়া *
           </label>
-          <div className="flex items-center">
-            <input
-              className="mr-2 leading-tight"
-              type="radio"
-              id="insideDhaka"
-              name="deliveryArea"
-              value="insideDhaka"
-              defaultChecked
-              onChange={() => setLocation("insideDhaka")}
-            />
-            <label className="text-gray-700" htmlFor="insideDhaka">
-              ঢাকা সিটির ভিতরে (৬০ টাকা)
-            </label>
-          </div>
-          <div className="flex items-center">
-            <input
-              className="mr-2 leading-tight"
-              type="radio"
-              id="outsideDhaka"
-              name="deliveryArea"
-              value="outsideDhaka"
-              onChange={() => setLocation("outsideDhaka")}
-            />
-            <label className="text-gray-700" htmlFor="outsideDhaka">
-              ঢাকা সিটির বাইরে (১৫০ টাকা)
-            </label>
+          <div className="bg-white border border-solid border-gray-300 rounded-[8px] overflow-hidden">
+            <div
+              className={`py-[20px] px-[14px] ${
+                location === "insideDhaka" ? "bg-[#f8f8f8]" : ""
+              }`}
+            >
+              <input
+                className="mr-2 leading-tight w-[18px] h-[18px] border border-gray-300 rounded-full peer-checked:bg-green-500"
+                type="radio"
+                id="insideDhaka"
+                name="deliveryArea"
+                value="insideDhaka"
+                defaultChecked
+                onChange={() => setLocation("insideDhaka")}
+              />
+              <label className="text-gray-700 " htmlFor="insideDhaka">
+                ঢাকা সিটির ভিতরে (৬০ টাকা)
+              </label>
+            </div>
+            <div
+              className={`flex items-center py-[20px] px-[14px] ${
+                location === "outsideDhaka" ? "bg-[#f8f8f8]" : ""
+              }`}
+            >
+              <input
+                className="mr-2 leading-tight w-[18px] h-[18px] text-green-500 cursor-pointer focus:ring-green-500"
+                type="radio"
+                id="outsideDhaka"
+                name="deliveryArea"
+                value="outsideDhaka"
+                onChange={() => setLocation("outsideDhaka")}
+              />
+              <label className="text-gray-700 " htmlFor="outsideDhaka">
+                ঢাকা সিটির বাইরে (১৫০ টাকা)
+              </label>
+            </div>
           </div>
         </div>
-        <div className="bg-gray-100 p-4 rounded-lg">
+        {/* <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2">
+            সাইজ *
+          </label>
+          <div className="bg-white border border-solid border-gray-300 rounded-[8px] overflow-hidden">
+            <div className="py-[10px] px-[14px]">
+              <input
+                className="mr-2 leading-tight"
+                type="radio"
+                id="size18"
+                name="size"
+                value="18/18"
+              />
+              <label className="text-gray-700" htmlFor="size18">
+                18/18
+              </label>
+            </div>
+            <div className="py-[10px] px-[14px]">
+              <input
+                className="mr-2 leading-tight"
+                type="radio"
+                id="colorGreen"
+                name="color"
+                value="green"
+              />
+              <label className="text-gray-700" htmlFor="colorGreen">
+                সবুজ (Green)
+              </label>
+            </div>
+          </div>
+        </div> */}
+        {/* order summary */}
+        {/* <div className="bg-gray-100 p-4 rounded-lg">
           <h2 className="text-xl font-bold mb-2">অর্ডার সামারি</h2>
           <p className="text-gray-700">
             নির্বাচিত পণ্য:{" "}
@@ -201,7 +228,7 @@ const OrderForm = () => {
           <p className="text-gray-700">
             ডেলিভারি চার্জ:{" "}
             <span className="font-bold">
-              ৳{location == "insideDhaka" ? 60 : 150}
+              ৳{location === "insideDhaka" ? 60 : 150}
             </span>
           </p>
           <p className="text-gray-700">
@@ -210,20 +237,80 @@ const OrderForm = () => {
               ৳{" "}
               {selectedBurqas.reduce(
                 (total, item) => total + Number(item.finalPrice),
-                location == "insideDhaka" ? 60 : 150
+                location === "insideDhaka" ? 60 : 150
               )}
             </span>
           </p>
+        </div> */}
+        <div class="bg-gray-100 border border-solid border-gray-300 rounded-[4px] my-[20px]">
+          <div class="text-[15px] text-gray-700 flex items-center bg-gray-200 p-[10px_15px] border-b border-gray-300 gap-[8px]">
+            <span className="not-sr-only font-normal text-[inherit] leading-[1] antialiased"></span>
+            <i class="ti ti-shopping-cart"></i>
+            অর্ডার সামারি
+          </div>
+          <div class="p-[15] bg-[#ffffff]">
+            <div class="flex justify-between text-[14px] text-gray-700 py-[10px] border-b border-gray-200">
+              <span>নির্বাচিত দ্রব্য:</span>
+            </div>
+
+            <div
+              class="text-[12px] text-[#333333] bg-white py-[10px] px-[4px] my-[8px]"
+              id="selectedProductDetails"
+            >
+              {selectedBurqas.length > 0 ? (
+                <div>
+                  {selectedBurqas.map((burqa, index) => (
+                    <div
+                      class=" text-[#333333] text-[12px] py-[8px]"
+                      key={index}
+                    >
+                      {burqa.name} - {burqa.quantity}টি - ৳{burqa.finalPrice}
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <span className="font-bold">কোনো পণ্য নির্বাচন করা হয়নি</span>
+              )}
+            </div>
+            <div class=" flex justify-between text-[14px] text-[#333333] py-[10px] border-b-[1px] border-[#eeeeee]">
+              <span>মোট মূল্য:</span>
+              <span class="total-price">
+                ৳
+                {selectedBurqas.reduce(
+                  (total, item) => Number(total) + Number(item.finalPrice),
+                  0
+                )}
+              </span>
+            </div>
+            <div class=" flex justify-between text-[14px] text-[#333333] py-[10px] border-b-[1px] border-[#eeeeee]">
+              <span>ডেলিভারি চার্জ:</span>
+              <span class="delivery-charge">
+                ৳{location == "insideDhaka" ? 60 : 150}
+              </span>
+            </div>
+            <div class=" flex justify-between text-[16px] text-[#333333] py-[10px] border-t-[2px] border-[#eeeeee] mt-[10px] pt-4 font-medium ">
+              <span className="font-[600] text-[16px]">সর্বমোট:</span>
+              <span class="font-black text-[18px] text-[#00887b]">
+                ৳
+                {selectedBurqas.reduce(
+                  (total, item) => total + Number(item.finalPrice),
+                  location === "insideDhaka" ? 60 : 150
+                )}
+              </span>
+            </div>
+          </div>
         </div>
-        <div className=" w-full p-[10] bg-[#fff3cd] text-center my-4">
-          <span className="text-center  border-none rounded-[4px] text-[#856404] text-[14px]">
+        <div className="w-full p-[10] bg-[#fff3cd] text-center my-4">
+          <span className="text-center border-none rounded-[4px] text-[#856404] text-[14px]">
             দয়া করে সকল তথ্য পূরণ করুন
           </span>
         </div>
         <button
-          disabled={selectedBurqas.length > 0 ? false : true}
-          className={`p-4 w-full rounded text-[18px] text-white bg-[#f44336] cursor-pointer ${
-            selectedBurqas.length > 0 ? "" : " cursor-not-allowed"
+          disabled={selectedBurqas.length === 0} // Disable if no items are selected
+          className={`p-4 w-full rounded text-[18px] text-white  ${
+            selectedBurqas.length > 0
+              ? "cursor-pointer bg-[#f44336]"
+              : "cursor-not-allowed bg-[#666666]"
           }`}
         >
           অর্ডার কনফার্ম করুন

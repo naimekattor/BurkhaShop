@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { ChevronLeft, ChevronRight, Star, AlertTriangle } from "lucide-react";
 import Image from "next/image";
 import { useProductContext } from "@/context/ProductContext";
-
+import { IoFlameOutline } from "react-icons/io5";
 // Star Rating Component
 const StarRating = ({ rating, totalStars = 5 }) => {
   return (
@@ -29,6 +29,7 @@ const ProductDisplay = () => {
   if (loading || products.length === 0) {
     return <p>Loading products...</p>;
   }
+  console.log(products);
 
   const lastProductIndx = products.length - 1;
   const productData = products[lastProductIndx];
@@ -46,9 +47,9 @@ const ProductDisplay = () => {
   const currentImage = productData.images[selectedImageIndex];
 
   return (
-    <div className="container mx-auto my-5 rounded-lg overflow-hidden">
+    <div className="max-w-[500px] mx-auto my-5 rounded-lg overflow-hidden">
       {/* Main Product Image */}
-      <div className="relative max-w-[500px] mx-auto bg-[#f8f9fa] flex justify-center items-center min-h-[400px]">
+      <div className="relative max-w-[500px] mx-auto flex justify-center items-center min-h-[400px]">
         <Image
           width={450}
           height={450}
@@ -56,16 +57,10 @@ const ProductDisplay = () => {
           alt={productData.title}
           className="max-w-full h-[450px] block object-cover"
         />
-        {productData.discount && (
-          <div className="absolute top-5 left-5 bg-[#FF6B6B] text-white px-2.5 py-1 rounded text-sm font-bold">
-            {productData.discount} ছাড়!
-          </div>
-        )}
-        {productData.price && (
-          <div className="absolute top-5 right-5 bg-[#1ABC9C] text-white px-4 py-2 rounded text-base font-bold">
-            {productData.price}
-          </div>
-        )}
+
+        <div className="absolute top-5 left-7 bg-[#f5463d] text-white px-2.5 py-2 rounded-full text-sm font-bold shadow-lg ">
+          {productData.discount} ৩০% ছাড়!
+        </div>
       </div>
 
       {/* Thumbnail Navigation */}
@@ -99,30 +94,43 @@ const ProductDisplay = () => {
           <ChevronRight size={24} />
         </button>
       </div>
-
-      {/* Stock Alert */}
-      {productData.moreColorsText && (
-        <div className="max-w-[500px] mx-auto flex items-center justify-center p-[10px] bg-[#FFF3CD] text-[#856404] text-[14px] border-t border-b border-[#eee]">
-          <AlertTriangle size={18} className="mr-[8px]" color="#FFA500" />
-          {productData.moreColorsText}
-        </div>
-      )}
-
-      {/* Review and Order Button */}
-      <div className="max-w-[500px] mx-auto text-center bg-white p-[15px]">
-        <div className="flex flex-col items-center mb-[10px]">
-          <div className="flex items-center">
-            <StarRating rating={productData.rating} />
-            <span className="text-[12px] text-[#777] ml-[5px] mt-[3px]">
-              {productData.reviewCountText}
-            </span>
+      <div className="flex items-center max-w-[280px] gap-[12px] bg-[#FFF3E0] py-[10px] px-[15px] my-[15px] mx-auto rounded-[4px]">
+        <span className=" not-italic font-normal normal-case leading-none antialiased text-[#e65100] text-[18px]">
+          <IoFlameOutline />
+        </span>
+        <div className="flex-1">
+          <div className="text-[#e65100] text-[13px] mb-[5px]">
+            মাত্র ৩টি খিমার বাকি আছে!
+          </div>
+          <div className="h-[3px] bg-[#ff6b0033]">
+            <div className="w-3/4 h-full bg-[#e65100]"></div>
           </div>
         </div>
-        <p className="text-[14px] text-[#333] mt-[5px] mb-[15px]">
-          {productData.satisfiedCustomersText}
-        </p>
-        <button className="bg-[#2C3E50] text-white py-[12px] px-[25px] text-[16px] font-bold cursor-pointer rounded-[5px] w-[90%] max-w-[300px] m-[10px] auto">
-          {productData.orderButtonText}
+      </div>
+      <div class="mt-[18px] mr-0 mb-0 text-center">
+        <div class="font-serif text-[22px] font-bold text-neutral-900 mb-0">
+          প্রিমিয়াম সেমি-লং খিমার
+        </div>
+        <div class="flex justify-center items-baseline gap-0">
+          <span class="text-[18px] text-gray-500 opacity-70 line-through">
+            2580৳
+          </span>
+          <span class="text-[24px] text-[#e65100] font-bold ml-1">
+            {productData.price}৳
+          </span>
+        </div>
+      </div>
+
+      <div class="text-center m-1">
+        <span class="text-yellow-400 text-[20px] tracking-wide relative inline-block">
+          ★★★★★
+        </span>
+        <span class="text-gray-700 text-[15px] font-medium">(5.0 রিভিউ)</span>
+      </div>
+      <div class="">
+        <div class=""></div>
+        <button className="w-full max-w-[200px] text-white text-center font-serif font-bold text-[18px] cursor-pointer block bg-black py-[10px] m-[5px_auto_20px] border-none">
+          অর্ডার করুন
         </button>
       </div>
     </div>
