@@ -52,7 +52,7 @@ const ProductDisplay = () => {
   const currentImage = productData.images[selectedImageIndex];
 
   return (
-    <div className="max-w-[500px] mx-auto my-5 rounded-lg overflow-hidden">
+    <div className="max-w-[500px] mx-auto md:my-5 mb-5 mt-0 rounded-lg overflow-hidden">
       {/* Main Product Image */}
       <div className="relative max-w-[500px] mx-auto flex justify-center items-center min-h-[400px]">
         <Image
@@ -105,7 +105,7 @@ const ProductDisplay = () => {
         </span>
         <div className="flex-1">
           <div className="text-[#e65100] text-[13px] mb-[5px]">
-            মাত্র ৩টি খিমার বাকি আছে!
+            মাত্র {productData.stock} টি খিমার বাকি আছে!
           </div>
           <div className="h-[3px] bg-[#ff6b0033]">
             <div className="w-3/4 h-full bg-[#e65100]"></div>
