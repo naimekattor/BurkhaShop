@@ -5,6 +5,7 @@ import ProductDisplay from "@/components/ProductDisplay";
 import ProductFeaturesAndOffer from "@/components/ProductFeaturesAndOffer";
 import ProductSelection from "@/components/ProductSelection";
 import OrderForm from "@/components/OrderForm";
+import Footer from "@/components/Footer";
 
 /* // Default product data (fallback)
 const defaultProductData = {
@@ -72,6 +73,7 @@ export default function Home() {
       <ImageGallery />
       <ProductSelection /* product={product} */ />
       <OrderForm />
+      <Footer />
     </>
   );
 }
