@@ -1,7 +1,7 @@
 "use client";
 import { useProductContext } from "@/context/ProductContext";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { MdOutlineCheckCircleOutline } from "react-icons/md";
 import { FiPhoneCall } from "react-icons/fi";
 const CheckIcon = ({ className }) => (
@@ -35,7 +35,7 @@ const ProductFeaturesAndOffer = () => {
     ? new Date(product.countdown).getTime()
     : null;
 
-  function getTimeRemaining() {
+  const getTimeRemaining = useCallback(() => {
     if (!targetDate) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
 
     const now = new Date().getTime();
@@ -49,7 +49,7 @@ const ProductFeaturesAndOffer = () => {
     const seconds = Math.floor((total / 1000) % 60);
 
     return { days, hours, minutes, seconds };
-  }
+  }, [targetDate]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -57,7 +57,7 @@ const ProductFeaturesAndOffer = () => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [targetDate]);
+  }, [getTimeRemaining]);
 
   // Handle loading or empty products array
   if (loading) {
