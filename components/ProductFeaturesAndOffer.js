@@ -81,12 +81,12 @@ const ProductFeaturesAndOffer = () => {
     <div className="max-w-[500px] mx-auto bg-[#f0f0f0] p-[15px_32px]">
       {/* Features Section */}
       <div className="py-[20px]">
-        <h2 class="text-center font-bold text-[24px] text-black mb-[20px]">
+        <h2 className="text-center font-bold text-[24px] text-black mb-[20px]">
           আমাদের খিমারের বৈশিষ্ট্য
         </h2>
         <div className="flex flex-col mb-[20px] gap-[12px]">
           {features.map((list, index) => (
-            <div class="flex items-start gap-[10px] mb-[25px]" key={index}>
+            <div className="flex items-start gap-[10px] mb-[25px]" key={index}>
               <span className="text-[#f44336] text-[20px] ">
                 <MdOutlineCheckCircleOutline />
               </span>
@@ -97,16 +97,16 @@ const ProductFeaturesAndOffer = () => {
           ))}
         </div>
       </div>
-      <div class="max-w-[500px] text-center mx-auto mb-[20px] bg-[#f0f0f0] p-[20px]">
-        <h2 class="font-bold text-[20px] text-black mb-[10px]">
+      <div className="max-w-[500px] text-center mx-auto mb-[20px] bg-[#f0f0f0] p-[20px]">
+        <h2 className="font-bold text-[20px] text-black mb-[10px]">
           যেকোনো প্রয়োজনে কল করুন
         </h2>
-        <div class="text-[32px] font-bold text-red-500 mb-[15px]">
+        <div className="text-[32px] font-bold text-red-500 mb-[15px]">
           01835481636
         </div>
         <a
           href="tel:01884314771"
-          class="inline-flex items-center justify-center text-white font-sans text-[18px] font-bold gap-[8px] bg-red-500 no-underline px-[30px] py-[12px] rounded-[4px] transition duration-300"
+          className="inline-flex items-center justify-center text-white font-sans text-[18px] font-bold gap-[8px] bg-red-500 no-underline px-[30px] py-[12px] rounded-[4px] transition duration-300"
         >
           <span>
             <FiPhoneCall />

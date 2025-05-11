@@ -4,6 +4,8 @@ import React, { useState } from "react";
 
 const OrderForm = () => {
   const { selectedBurqas, setSelectedBurqas } = useSelectedBurqas();
+  console.log(selectedBurqas);
+
   const [location, setLocation] = useState("insideDhaka");
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState("");
@@ -32,6 +34,7 @@ const OrderForm = () => {
     console.log("✅ Valid phone number. Proceeding with submission...");
 
     // order data send to google sheet
+    console.log(selectedBurqas);
 
     const orderData = {
       name,
@@ -39,7 +42,7 @@ const OrderForm = () => {
       phone,
       location,
       deliveryArea,
-      selectedBurqas,
+
       totalPrice: selectedBurqas.reduce(
         (total, item) => total + Number(item.finalPrice),
         0
@@ -50,30 +53,28 @@ const OrderForm = () => {
         location === "insideDhaka" ? 60 : 150
       ),
       orderTime: new Date().toLocaleString("en-BD", { timeZone: "Asia/Dhaka" }),
+      selectedBurqas: selectedBurqas,
     };
+    const response = await fetch("/api/order", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(orderData),
+    });
 
-    try {
-      const response = await fetch(
-        "/api/https://script.google.com/macros/s/AKfycbzf37Ef43KmJHE0aiQ5fGBPcQnKQD0ExYdCvUWIu-JWospDzvsvUcs4T4n8o6efd2Pn/exec",
-        {
-          method: "POST",
-          body: JSON.stringify(orderData),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Submit Order Error:", errorText);
+      alert("Failed to submit order. Please try again.");
+      return;
+    }
 
-      const result = await response.json();
-      if (result.result === "success") {
-        alert("অর্ডার সফলভাবে গ্রহণ করা হয়েছে!");
-        setSelectedBurqas([]); // optional: clear selection
-      } else {
-        alert("অর্ডার প্রক্রিয়া ব্যর্থ হয়েছে। আবার চেষ্টা করুন।");
-      }
-    } catch (err) {
-      console.error("Error submitting order:", err);
-      alert("নেটওয়ার্ক সমস্যার কারণে অর্ডার সাবমিট হয়নি।");
+    const result = await response.json();
+    if (result.result === "success") {
+      alert("Order submitted successfully!");
+    } else {
+      alert("There was an error submitting the order.");
     }
   };
 
@@ -242,26 +243,26 @@ const OrderForm = () => {
             </span>
           </p>
         </div> */}
-        <div class="bg-gray-100 border border-solid border-gray-300 rounded-[4px] my-[20px]">
-          <div class="text-[15px] text-gray-700 flex items-center bg-gray-200 p-[10px_15px] border-b border-gray-300 gap-[8px]">
+        <div className="bg-gray-100 border border-solid border-gray-300 rounded-[4px] my-[20px]">
+          <div className="text-[15px] text-gray-700 flex items-center bg-gray-200 p-[10px_15px] border-b border-gray-300 gap-[8px]">
             <span className="not-sr-only font-normal text-[inherit] leading-[1] antialiased"></span>
-            <i class="ti ti-shopping-cart"></i>
+            <i className="ti ti-shopping-cart"></i>
             অর্ডার সামারি
           </div>
-          <div class="p-[15] bg-[#ffffff]">
-            <div class="flex justify-between text-[14px] text-gray-700 py-[10px] border-b border-gray-200">
+          <div className="p-[15] bg-[#ffffff]">
+            <div className="flex justify-between text-[14px] text-gray-700 py-[10px] border-b border-gray-200">
               <span>নির্বাচিত দ্রব্য:</span>
             </div>
 
             <div
-              class="text-[12px] text-[#333333] bg-white py-[10px] px-[4px] my-[8px]"
+              className="text-[12px] text-[#333333] bg-white py-[10px] px-[4px] my-[8px]"
               id="selectedProductDetails"
             >
               {selectedBurqas.length > 0 ? (
                 <div>
                   {selectedBurqas.map((burqa, index) => (
                     <div
-                      class=" text-[#333333] text-[12px] py-[8px]"
+                      className=" text-[#333333] text-[12px] py-[8px]"
                       key={index}
                     >
                       {burqa.name} - {burqa.quantity}টি - ৳{burqa.finalPrice}
@@ -272,9 +273,9 @@ const OrderForm = () => {
                 <span className="font-bold">কোনো পণ্য নির্বাচন করা হয়নি</span>
               )}
             </div>
-            <div class=" flex justify-between text-[14px] text-[#333333] py-[10px] border-b-[1px] border-[#eeeeee]">
+            <div className=" flex justify-between text-[14px] text-[#333333] py-[10px] border-b-[1px] border-[#eeeeee]">
               <span>মোট মূল্য:</span>
-              <span class="total-price">
+              <span className="total-price">
                 ৳
                 {selectedBurqas.reduce(
                   (total, item) => Number(total) + Number(item.finalPrice),
@@ -282,15 +283,15 @@ const OrderForm = () => {
                 )}
               </span>
             </div>
-            <div class=" flex justify-between text-[14px] text-[#333333] py-[10px] border-b-[1px] border-[#eeeeee]">
+            <div className=" flex justify-between text-[14px] text-[#333333] py-[10px] border-b-[1px] border-[#eeeeee]">
               <span>ডেলিভারি চার্জ:</span>
-              <span class="delivery-charge">
+              <span className="delivery-charge">
                 ৳{location == "insideDhaka" ? 60 : 150}
               </span>
             </div>
-            <div class=" flex justify-between text-[16px] text-[#333333] py-[10px] border-t-[2px] border-[#eeeeee] mt-[10px] pt-4 font-medium ">
+            <div className=" flex justify-between text-[16px] text-[#333333] py-[10px] border-t-[2px] border-[#eeeeee] mt-[10px] pt-4 font-medium ">
               <span className="font-[600] text-[16px]">সর্বমোট:</span>
-              <span class="font-black text-[18px] text-[#00887b]">
+              <span className="font-black text-[18px] text-[#00887b]">
                 ৳
                 {selectedBurqas.reduce(
                   (total, item) => total + Number(item.finalPrice),

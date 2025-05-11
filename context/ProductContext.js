@@ -6,7 +6,7 @@ const ProductContext = createContext();
 export const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  console.log(products);
+  //console.log(products);
 
   const fetchProducts = async () => {
     try {
@@ -14,7 +14,7 @@ export const ProductProvider = ({ children }) => {
       const data = await res.json();
       setProducts(data);
     } catch (err) {
-      console.error("Failed to fetch products:", err);
+      //console.error("Failed to fetch products:", err);
     } finally {
       setLoading(false);
     }

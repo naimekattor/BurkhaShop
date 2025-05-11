@@ -29,8 +29,8 @@ const ProductDisplay = () => {
   if (loading || products.length === 0) {
     return (
       <div className="h-screen w-full flex items-center justify-center bg-amber-50 z-50">
-        <div class="w-12 h-12 border-4 border-dashed rounded-full animate-spin border-purple-600"></div>
-        <p class="text-gray-600 font-medium">Loading, please wait...</p>
+        <div className="w-12 h-12 border-4 border-dashed rounded-full animate-spin border-purple-600"></div>
+        <p className="text-gray-600 font-medium">Loading, please wait...</p>
       </div>
     );
   }
@@ -112,28 +112,30 @@ const ProductDisplay = () => {
           </div>
         </div>
       </div>
-      <div class="mt-[18px] mr-0 mb-0 text-center">
-        <div class="font-serif text-[22px] font-bold text-neutral-900 mb-0">
-          প্রিমিয়াম সেমি-লং খিমার
+      <div className="mt-[18px] mr-0 mb-0 text-center">
+        <div className="font-serif text-[22px] font-bold text-neutral-900 mb-0">
+          {productData.title}
         </div>
-        <div class="flex justify-center items-baseline gap-0">
-          <span class="text-[18px] text-gray-500 opacity-70 line-through">
+        <div className="flex justify-center items-baseline gap-0">
+          <span className="text-[18px] text-gray-500 opacity-70 line-through">
             2580৳
           </span>
-          <span class="text-[24px] text-[#e65100] font-bold ml-1">
+          <span className="text-[24px] text-[#e65100] font-bold ml-1">
             {productData.price}৳
           </span>
         </div>
       </div>
 
-      <div class="text-center m-1">
-        <span class="text-yellow-400 text-[20px] tracking-wide relative inline-block">
+      <div className="text-center m-1">
+        <span className="text-yellow-400 text-[20px] tracking-wide relative inline-block">
           ★★★★★
         </span>
-        <span class="text-gray-700 text-[15px] font-medium">(5.0 রিভিউ)</span>
+        <span className="text-gray-700 text-[15px] font-medium">
+          (5.0 রিভিউ)
+        </span>
       </div>
-      <div class="">
-        <div class=""></div>
+      <div className="">
+        <div className=""></div>
         <button className="w-full max-w-[200px] text-white text-center font-serif font-bold text-[18px] cursor-pointer block bg-black py-[10px] m-[5px_auto_20px] border-none">
           অর্ডার করুন
         </button>

@@ -7,6 +7,7 @@ import React, { useState } from "react";
 const ProductSelection = () => {
   const { products, loading } = useProductContext(); // Access loading state
   const { selectedBurqas, setSelectedBurqas } = useSelectedBurqas();
+  console.log(selectedBurqas);
 
   // Handle loading state
   if (loading) {
@@ -121,8 +122,8 @@ const ProductSelection = () => {
                 <input
                   type="checkbox"
                   name="burqa"
-                  value={burqa.id}
-                  checked={isSelected}
+                  value={burqa.title}
+                  checked={!!isSelected}
                   onChange={() => handleSelect(burqa.id)}
                   className="appearance-none w-[24px] h-[24px] mr-[12px] mt-[5px] cursor-pointer bg-white border-2 border-solid border-gray-300 transition duration-300 rounded-full checked:bg-[#00897b] checked:border-[#00897b] hover:border-[#00897b] relative before:content-['✔'] before:absolute before:inset-0 before:flex before:items-center before:justify-center before:text-white before:opacity-0 checked:before:opacity-100"
                 />
