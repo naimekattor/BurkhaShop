@@ -6,72 +6,26 @@ import ProductFeaturesAndOffer from "@/components/ProductFeaturesAndOffer";
 import ProductSelection from "@/components/ProductSelection";
 import OrderForm from "@/components/OrderForm";
 import Footer from "@/components/Footer";
-
-/* // Default product data (fallback)
-const defaultProductData = {
-  title: "ডিফল্ট প্রোডাক্ট",
-  discount: "২৫%",
-  price: "৭৫০ ৳",
-  images: [
-    "/images/black.webp",
-    "/images/jolpai.webp",
-    "/images/merun.webp",
-    "/images/nude.webp",
-  ],
-  rating: 4,
-  reviewCountText: "(ডিফল্ট রেটিং)",
-  satisfiedCustomersText: "১০০০+ কাস্টমার সন্তুষ্ট",
-  moreColorsText: "মাত্র কয়েকটি বোরকা বাকি আছে!",
-  orderButtonText: "অর্ডার করুন",
-  countdown: "2025-12-31T23:59:59",
-}; */
+import { useProductContext } from "@/context/ProductContext";
 
 export default function Home() {
-  /* const [product, setProduct] = useState(null);
-  const [order, setOrder] = useState({ name: "", phone: "" }); */
-
-  /* useEffect(() => {
-    const data = localStorage.getItem("productData");
-    if (data) {
-      setProduct(JSON.parse(data));
-    } else {
-      setProduct(defaultProductData); // Use fallback data if no product data is found
-    }
-  }, []); */
-
-  /* const submitOrder = async () => {
-    const payload = {
-      ...order,
-      product: product.title,
-      price: product.price,
-    };
-
-    await fetch(
-      "https://script.google.com/macros/s/AKfycbwk46LESO1ESxwO81NDECMu-o_0_WFasUWyLqFG7NQ0bxYZjVUBjwwhdh4aC8I6Hh8/exec",
-      {
-        method: "POST",
-        body: JSON.stringify(payload),
-        headers: { "Content-Type": "application/json" },
-      }
+  const { products, loading } = useProductContext();
+  // Handle loading or empty products
+  if (loading || products.length === 0) {
+    return (
+      <div className="min-h-screen w-full flex items-center justify-center bg-amber-50 z-50">
+        <div className="w-12 h-12 border-4 border-dashed rounded-full animate-spin border-purple-600"></div>
+        <p className="text-gray-600 font-medium">Loading, please wait...</p>
+      </div>
     );
-
-    alert("Order placed!");
-  };
-
-  if (!product) return <p>Loading...</p>; */
+  }
 
   return (
     <>
-      <ProductDisplay
-      /* product={product} */
-      /* defaultProductData={defaultProductData} */
-      />
-      <ProductFeaturesAndOffer
-      /* product={product} */
-      /* defaultProductData={defaultProductData} */
-      />
+      <ProductDisplay />
+      <ProductFeaturesAndOffer />
       <ImageGallery />
-      <ProductSelection /* product={product} */ />
+      <ProductSelection />
       <OrderForm />
       <Footer />
     </>
