@@ -42,6 +42,20 @@ export async function POST(req) {
     );
   }
 }
+/* // app/products/page.js or pages/products.js
+
+export async function getStaticProps() {
+  const client = await clientPromise;
+  const db = client.db("products");
+  const products = await db.collection("products").find().toArray();
+
+  return {
+    props: {
+      products: JSON.parse(JSON.stringify(products)),
+    },
+    revalidate: 60 * 60 * 24 * 7, // Revalidate every 7 days
+  };
+} */
 
 // Handle GET requests
 export async function GET() {

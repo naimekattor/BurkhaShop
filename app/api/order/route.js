@@ -6,7 +6,7 @@ export async function POST(request) {
     console.log("Request Body:", body);
 
     const response = await fetch(
-      "https://script.google.com/macros/s/AKfycbwnwit7gxQqe8zEnJDyq6sHa1Kk66zEHkM4lI2JENIJqxC8eujaSq4lO1pugJDDd9gNgA/exec",
+      "https://script.google.com/macros/s/AKfycbzQhGr0zwP-5WeKkZxUkc4gQ6NTJG64pRhdZWEejPFcke3g-mWa9JERwBD_IkSS48QC/exec",
       {
         method: "POST",
         headers: {

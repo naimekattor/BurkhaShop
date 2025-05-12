@@ -12,9 +12,9 @@ const nextConfig = {
       },
     ];
   },
-  experimental: {
+  /* experimental: {
     appDir: true, // ✅ needed if you're mixing app/pages routes
-  },
+  }, */
 };
 
 export default nextConfig;
